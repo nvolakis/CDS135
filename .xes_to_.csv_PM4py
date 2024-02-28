@@ -1,0 +1,14 @@
+#This script used the PM4py library to convert a .xes file to .csv
+#The resulting .csv file can be loaded into a pandas Dataframe for further analysis
+
+pip install pm4py
+import pm4py
+from pm4py.objects.conversion.log import converter as xes_converter
+from pm4py.objects.log.importer.xes import importer as xes_importer
+
+def xes_to_csv_pm4py(xes_file, csv_file):
+    log = xes_importer.apply(xes_file)
+    df = xes_converter.apply(log, variant=xes_converter.Variants.TO_DATA_FRAME)
+    df.to_csv(csv_file, index=False)
+
+xes_to_csv_pm4py('path to .xes', 'path to .csv')
